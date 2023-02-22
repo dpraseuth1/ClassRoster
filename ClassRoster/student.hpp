@@ -54,7 +54,7 @@ public:
     void setDays(const double days[]);
     void setDegreeProgram(DegreeProgram dp);
     
-    static void printStudentData();
+    static void printHeader();
     void print();
     
 };
