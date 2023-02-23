@@ -28,12 +28,12 @@ private:
     string lastName;
     string email;
     int age;
-    double daysInClass[daysArraySize];
+    int daysInClass[daysArraySize];
     DegreeProgram degreeProgram;
 public:
     //constructors
     Student();
-    Student(string studentID, string firstName, string lastName, string email, int age, double daysInClass[], DegreeProgram degreeProgram);
+    Student(string studentID, string firstName, string lastName, string email, int age, int daysInClass[], DegreeProgram degreeProgram);
     ~Student();
     
     //getters
@@ -42,7 +42,7 @@ public:
     string getLastName();
     string getEmail();
     int getAge();
-    const double* getDays();
+    const int* getDays();
     DegreeProgram getDegreeProgram();
     
     //setters
@@ -51,7 +51,7 @@ public:
     void setLastName(string lastName);
     void setEmail(string email);
     void setAge(int age);
-    void setDays(const double days[]);
+    void setDays(const int days[]);
     void setDegreeProgram(DegreeProgram dp);
     
     static void printHeader();

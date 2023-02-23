@@ -19,7 +19,7 @@ Student::Student()
     
 }
 
-Student::Student(string studentID, string firstName, string lastName, string email, int age, double daysInClass[], DegreeProgram degreeProgram)
+Student::Student(string studentID, string firstName, string lastName, string email, int age, int daysInClass[], DegreeProgram degreeProgram)
 {
     this->studentID = studentID;
     this->firstName = firstName;
@@ -41,7 +41,7 @@ string Student::getFirstName() {return this->firstName;}
 string Student::getLastName() {return this->lastName;}
 string Student::getEmail() {return this->email;}
 int Student::getAge() {return this->age;}
-const double* Student::getDays() {return this->daysInClass;}
+const int* Student::getDays() {return this->daysInClass;}
 DegreeProgram Student::getDegreeProgram() {return this->degreeProgram;}
 
 //setters
@@ -50,7 +50,7 @@ void Student::setFirstName(string firstName) {this->firstName = firstName;}
 void Student::setLastName(string lastName) {this->lastName = lastName;}
 void Student::setEmail(string email) {this->email = email;}
 void Student::setAge(int age) {this->age = age;}
-void Student::setDays(const double days[])
+void Student::setDays(const int days[])
 {
     for(int i = 0; i < daysArraySize; i++){ this->daysInClass[i] = daysInClass[i];}
 }
@@ -66,5 +66,19 @@ void Student::printHeader(){
     cout << "Age\t";
     cout << "Days in Course";
     cout << "Degree Program";
+    cout << endl;
+}
+
+
+void Student::print(){
+    cout << this->studentID << '\t';
+    cout << this->firstName << '\t';
+    cout << this->lastName << '\t';
+    cout << this->email << '\t';
+    cout << this->age << '\t';
+    cout << this->daysInClass[0] << '\t';
+    cout << this->daysInClass[1] << '\t';
+    cout << this->daysInClass[2] << '\t';
+    cout << degreeProgramStrings[(int)this->degreeProgram] << '\t';
     cout << endl;
 }
