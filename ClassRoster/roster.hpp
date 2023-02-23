@@ -30,7 +30,7 @@ public:
     Student** getStudents();
     void parse1(string row);
     
-    void add(string studentID, string firstName, string stulastName, string email, int age, int daysInClass1, int daysInClass2, int daysInClass3, DegreeProgram dp);
+    void add(string studentID, string firstName, string lastName, string email, int age, int daysInClass1, int daysInClass2, int daysInClass3, DegreeProgram dp);
     
     void printAll();
     
@@ -73,6 +73,24 @@ void Roster::parse1(string studentData)
     }
     
     add(studentID, firstName, lastName, email, age, p[0], p[1], p[2], dp);
+
+}
+
+
+void Roster::add(string studentID, string firstName, string lastName, string email, int age, int daysInClass1, int daysInClass2, int daysInClass3, DegreeProgram dp){
+    int daysInClassArray[3] = { daysInClass1, daysInClass2, daysInClass3};
+    students[++lastIndex] = new Student(studentID, firstName, lastName, email, age, daysInClassArray, dp);
+    cout << "Student added to roster at row " << lastIndex + 1 << endl;
+}
+
+void Roster::printAll(){
+    Student::printHeader();
+    for(i = 0; i <= Roster::lastIndex; i++) Roster::students[i]->print();
+}
+    
+
+
+
 
 
 
