@@ -85,13 +85,30 @@ void Roster::add(string studentID, string firstName, string lastName, string ema
 
 void Roster::printAll(){
     Student::printHeader();
-    for(i = 0; i <= Roster::lastIndex; i++) Roster::students[i]->print();
+    for(int i = 0; i <= Roster::lastIndex; i++) Roster::students[i]->print();
 }
     
+//pass in degree program
+
+void Roster::printByDegreeProgram(DegreeProgram dp)
+{
+    Student::printHeader();
+    for (int i = 0; i <= Roster::lastIndex; i++)
+        if (Roster::students[i]->getDegreeProgram() == dp) students[i]->print();
+}
 
 
+//find and display invalid emails
 
-
+void Roster::printInvalidEmails()
+{
+    for (int i = 0; i <= Roster::lastIndex; i++)
+    {
+        string email = Roster::getStudents()[i]->getEmail();
+        if (email.find('@') == string::npos || email.find('.') == string::npos || email.find(' ') != string::npos) //checking if email has an '@' and '.' and doesn't contain a ' '
+            cout << email << "is invalid" << endl; 
+    }
+}
 
 
 #endif /* roster_hpp */
