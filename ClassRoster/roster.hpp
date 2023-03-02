@@ -8,16 +8,15 @@
 #ifndef roster_hpp
 #define roster_hpp
 
-#include <iostream>
-#include <stdio.h>
 #pragma once
 #include <vector>
 #include <string.h>
 #include <cstring>
+#include <vector>
 #include <sstream>
 #include <regex>
-#include "student.hpp"
 
+#include "student.hpp"
 class Roster
 {
 private:
@@ -26,8 +25,9 @@ private:
     Student* students[numStudents] = { nullptr, nullptr, nullptr, nullptr, nullptr };
     
 public:
-    Roster();
-    Student** getStudents();
+    Student** getStudents(){
+        return students;
+    }
     void parse1(string row);
     
     void add(string studentID, string firstName, string lastName, string email, int age, int daysInClass1, int daysInClass2, int daysInClass3, DegreeProgram dp);
