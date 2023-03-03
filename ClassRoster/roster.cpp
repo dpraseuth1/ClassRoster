@@ -6,49 +6,32 @@
 //
 
 #include "roster.hpp"
+#include <regex>
 
 
-void Roster::parse1(string studentData)
+
+void Roster::parse1(string row)
 {
+    std::regex regex("\\,");
+    std::vector<string> splitter(
+        std::sregex_token_iterator(row.begin(), row.end(), regex, -1), std::sregex_token_iterator());
     DegreeProgram dp = DegreeProgram::SECURITY;
-    if(studentData.back() == 'K') dp = DegreeProgram::NETWORK;
-    else if(studentData.back() == 'E') dp = DegreeProgram::SOFTWARE;
-    int rhs = studentData.find(",");
-    string studentID = studentData.substr(0, rhs);
-    int lhs = rhs + 1;
-    rhs = studentData.find(",", lhs);
-    string firstName = studentData.substr(lhs, rhs - lhs);
-    lhs = rhs + 1;
-    rhs = studentData.find(",", lhs);
-    string lastName = studentData.substr(lhs, rhs - lhs);
-    lhs = rhs + 1;
-    rhs = studentData.find(",",lhs);
-    string email = studentData.substr(lhs , rhs - lhs);
-    lhs = rhs + 1;
-    rhs = studentData.find(",", lhs);
-    int age = stoi(studentData.substr(lhs, rhs - lhs));
-    int p[3];
-    for (int i = 0; i < 3; i++){
-        lhs = rhs + 1;
-        rhs = studentData.find(",", lhs);
-        p[i] = stoi(studentData.substr(lhs, rhs - lhs));
-        
-    }
+    if (splitter.at(6).back() == 'K') dp = DegreeProgram::NETWORK;
+    if (splitter.at(6).back() == 'E') dp = DegreeProgram::SOFTWARE;
+    add(splitter.at(0), splitter.at(1), splitter.at(2), splitter.at(3), stod(splitter.at(4)), stod(splitter.at(5)), stod(splitter.at(6)), stod(splitter.at(7)), dp);
     
-    add(studentID, firstName, lastName, email, age, p[0], p[1], p[2], dp);
-
 }
 
 
 void Roster::add(string studentID, string firstName, string lastName, string email, int age, int daysInClass1, int daysInClass2, int daysInClass3, DegreeProgram dp){
     int daysInClassArray[3] = { daysInClass1, daysInClass2, daysInClass3};
-    students[++lastIndex] = new Student(studentID, firstName, lastName, email, age, daysInClassArray, dp);
+    classRosterArray[++lastIndex] = new Student(studentID, firstName, lastName, email, age, daysInClassArray, dp);
     cout << "Student added to roster at row " << lastIndex + 1 << endl;
 }
 
 void Roster::printAll(){
     Student::printHeader();
-    for(int i = 0; i <= Roster::lastIndex; i++) Roster::students[i]->print();
+    for(int i = 0; i <= Roster::lastIndex; i++) Roster::classRosterArray[i]->print();
 }
     
 //pass in degree program
@@ -57,7 +40,7 @@ void Roster::printByDegreeProgram(DegreeProgram dp)
 {
     Student::printHeader();
     for (int i = 0; i <= Roster::lastIndex; i++)
-        if (Roster::students[i]->getDegreeProgram() == dp) students[i]->print();
+        if (Roster::classRosterArray[i]->getDegreeProgram() == dp) classRosterArray[i]->print();
 }
 
 
@@ -78,10 +61,10 @@ void Roster::printAverageDaysInClass(string studentID)
 {
     for (int i = 0; i <= Roster::lastIndex; i++)
     {
-        if (students[i]->getID() == studentID)
+        if (classRosterArray[i]->getID() == studentID)
         {
             cout << studentID << ":";
-            cout << (students[i]->getDays()[0] + students[i]->getDays()[1] + students[i]->getDays()[2]) / 3.0 << endl;
+            cout << (classRosterArray[i]->getDays()[0] + classRosterArray[i]->getDays()[1] + classRosterArray[i]->getDays()[2]) / 3.0 << endl;
         }
     }
 }
@@ -92,12 +75,12 @@ void Roster::removeID(string studentID)
     bool success = false;
     for (int i = 0; i <= Roster::lastIndex; i++)
     {
-        if (students[i]->getID() == studentID)
+        if (classRosterArray[i]->getID() == studentID)
         {
             success = true;
-            Student* temp = students[i];
-            students[i] = students[numStudents - 1];
-            students[numStudents - 1] = temp;
+            Student* temp = classRosterArray[i];
+            classRosterArray[i] = classRosterArray[numStudents - 1];
+            classRosterArray[numStudents - 1] = temp;
             Roster::lastIndex--;
         }
     }
@@ -113,9 +96,9 @@ Roster::~Roster()
 {
     for (int i = 0; i < numStudents; i++)
     {
-        cout << "Destructor called for " << students[i]->getID() << endl;
-        delete students[i];
-        students[i] = nullptr;
+        cout << "Destructor called for " << classRosterArray[i]->getID() << endl;
+        delete classRosterArray[i];
+        classRosterArray[i] = nullptr;
     }
 }
 

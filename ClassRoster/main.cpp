@@ -11,11 +11,11 @@ using namespace std;
 
 int main(){
     
-    cout << "--------------------------------------------" << std::endl;
-    cout << "Scripting and Programming Applications C867" << std::endl;
-    cout << "Created using C++ by" << std::endl;
-    cout << "David Praseuth | Student ID: 010343266" << std::endl;
-    cout << "--------------------------------------------" << std::endl;
+    cout << "--------------------------------------------" << endl;
+    cout << "Scripting and Programming Applications C867" << endl;
+    cout << "Created using C++ by" << endl;
+    cout << "David Praseuth | Student ID: 010343266" << endl;
+    cout << "--------------------------------------------" << endl;
 
 
 const string studentData[] =
@@ -29,31 +29,33 @@ const string studentData[] =
 
 const int numStudents = 5;
 
-Roster roster;
+    
+Roster classRoster;
+    Student stud1;
 
     cout << "Displaying all students:" << endl;
-    roster.printAll();
+    classRoster.printAll();
 
     for (int i = 0; i < 3; i++)
     {
         cout << "Displaying by Degree Program:" << degreeProgramStrings[i] << endl;
-        roster.printByDegreeProgram((DegreeProgram)i);
+        classRoster.printByDegreeProgram((DegreeProgram)i);
 
     }
 
     cout << "Displaying invalid emails:" << endl;
-    roster.printInvalidEmails();
+    classRoster.printInvalidEmails();
 
 
     cout << "Displaying average days to finish courses: " << endl;
-    for (int i = 0; i < numStudents; i++) roster.printAverageDaysInClass(roster.getStudents()[i]->getID());
+    for (int i = 0; i < numStudents; i++) classRoster.printAverageDaysInClass(classRoster.getStudents()[i]->getID());
 
 
     cout << "Removing Student ID : A1" << endl;
-    roster.removeID("A1");
+    classRoster.removeID("A1");
 
     cout << "Removing Student ID : A1" << endl;
-    roster.removeID("A1");
+    classRoster.removeID("A1");
 
     cout << "finished." << endl;
     return 0;

@@ -22,11 +22,11 @@ class Roster
 private:
     int lastIndex = -1;
     const static int numStudents = 5;
-    Student* students[numStudents] = { nullptr, nullptr, nullptr, nullptr, nullptr };
+    Student* classRosterArray[numStudents] = { nullptr, nullptr, nullptr, nullptr, nullptr };
     
 public:
     Student** getStudents(){
-        return students;
+        return classRosterArray;
     }
     void parse1(string row);
     
